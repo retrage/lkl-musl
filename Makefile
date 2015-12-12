@@ -45,7 +45,7 @@ CFLAGS =
 CFLAGS_AUTO = -Os -pipe
 CFLAGS_C99FSE = -std=c99 -ffreestanding -nostdinc 
 
-CFLAGS_ALL = $(CFLAGS_C99FSE)
+CFLAGS_ALL = $(CFLAGS_C99FSE) $(CFLAGS_LKL)
 CFLAGS_ALL += -D_XOPEN_SOURCE=700 -I$(srcdir)/arch/$(ARCH) -I$(srcdir)/arch/generic -Iobj/src/internal -I$(srcdir)/src/include -I$(srcdir)/src/internal -Iobj/include -I$(srcdir)/include
 CFLAGS_ALL += $(CPPFLAGS) $(CFLAGS_AUTO) $(CFLAGS)
 
@@ -83,6 +83,8 @@ all:
 	@exit 1
 
 else
+# exclude some files for frankenlibc
+BASE_SRCS := $(filter-out $(LKL_EXCLUDE),$(sort $(wildcard $(BASE_SRCS) $(LKL_INCLUDE))))
 
 all: $(ALL_LIBS) $(ALL_TOOLS)
 

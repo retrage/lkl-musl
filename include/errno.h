@@ -12,8 +12,14 @@ extern "C" {
 #ifdef __GNUC__
 __attribute__((const))
 #endif
+
+#ifdef CONFIG_LKL
+int *__errno(void);
+#define errno (*__errno())
+#else  /* !CONFIG_LKL */
 int *__errno_location(void);
 #define errno (*__errno_location())
+#endif	/* CONFIG_LKL */
 
 #ifdef _GNU_SOURCE
 extern char *program_invocation_short_name, *program_invocation_name;

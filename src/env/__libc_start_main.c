@@ -69,6 +69,7 @@ weak_alias(libc_start_init, __libc_start_init);
 typedef int lsm2_fn(int (*)(int,char **,char **), int, char **);
 static lsm2_fn libc_start_main_stage2;
 
+#ifndef CONFIG_LKL
 int __libc_start_main(int (*main)(int,char **,char **), int argc, char **argv)
 {
 	char **envp = argv+argc+1;
@@ -94,3 +95,4 @@ static int libc_start_main_stage2(int (*main)(int,char **,char **), int argc, ch
 	exit(main(argc, argv, envp));
 	return 0;
 }
+#endif
