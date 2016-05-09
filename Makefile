@@ -88,6 +88,7 @@ BASE_SRCS := $(filter-out $(LKL_EXCLUDE),$(sort $(wildcard $(BASE_SRCS) $(LKL_IN
 BASE_OBJS = $(patsubst $(srcdir)/%,%.o,$(basename $(BASE_SRCS)))
 ARCH_SRCS := $(filter-out $(LKL_EXCLUDE),$(sort $(wildcard $(ARCH_SRCS))))
 ARCH_OBJS = $(patsubst $(srcdir)/%,%.o,$(basename $(ARCH_SRCS)))
+REPLACED_OBJS = $(sort $(subst /$(ARCH)/,/,$(ARCH_OBJS)))
 ALL_OBJS = $(addprefix obj/, $(filter-out $(REPLACED_OBJS), $(sort $(BASE_OBJS) $(ARCH_OBJS))))
 LIBC_OBJS = $(filter obj/src/%,$(ALL_OBJS))
 AOBJS := $(LIBC_OBJS)
