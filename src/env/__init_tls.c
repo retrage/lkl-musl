@@ -12,10 +12,14 @@ int __init_tp(void *p)
 {
 	pthread_t td = p;
 	td->self = td;
+#ifndef CONFIG_LKL		/* FIXME */
 	int r = __set_thread_area(TP_ADJ(p));
 	if (r < 0) return -1;
 	if (!r) libc.can_do_threads = 1;
 	td->detach_state = DT_JOINABLE;
+#else
+	libc.can_do_threads = 1;
+#endif
 	td->tid = __syscall(SYS_set_tid_address, &td->detach_state);
 	td->locale = &libc.global_locale;
 	td->robust_list.head = &td->robust_list.head;
