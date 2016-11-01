@@ -1,10 +1,9 @@
+void *rumpuser_thread_get_cookie(void);
+
 static inline struct pthread *__pthread_self()
 {
 	struct pthread *self;
-	__asm__ ("mov %%fs:0,%0" : "=r" (self) );
-#ifdef CONFIG_LKL             /* FIXME */
-	self->locale = (locale_t)&__c_locale;
-#endif
+	self = (struct pthread *)rumpuser_thread_get_cookie();
 	return self;
 }
 

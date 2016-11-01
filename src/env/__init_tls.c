@@ -18,7 +18,9 @@ int __init_tp(void *p)
 	if (!r) libc.can_do_threads = 1;
 	td->detach_state = DT_JOINABLE;
 #else
+	void rumpuser_thread_set_cookie(void *thread, void *cookie);
 	libc.can_do_threads = 1;
+	rumpuser_thread_set_cookie(NULL, td);
 #endif
 	td->tid = __syscall(SYS_set_tid_address, &td->detach_state);
 	td->locale = &libc.global_locale;
