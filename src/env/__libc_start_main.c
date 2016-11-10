@@ -8,9 +8,11 @@
 #include "libc.h"
 
 static void dummy(void) {}
+#if !defined(CONFIG_LKL) || defined (RUMPRUN)
 weak_alias(dummy, _init);
 
 extern weak hidden void (*const __init_array_start)(void), (*const __init_array_end)(void);
+#endif
 
 static void dummy1(void *p) {}
 weak_alias(dummy1, __init_ssp);
@@ -56,6 +58,7 @@ void __init_libc(char **envp, char *pn)
 	libc.secure = 1;
 }
 
+#ifndef CONFIG_LKL
 static void libc_start_init(void)
 {
 	_init();
@@ -69,7 +72,6 @@ weak_alias(libc_start_init, __libc_start_init);
 typedef int lsm2_fn(int (*)(int,char **,char **), int, char **);
 static lsm2_fn libc_start_main_stage2;
 
-#ifndef CONFIG_LKL
 int __libc_start_main(int (*main)(int,char **,char **), int argc, char **argv)
 {
 	char **envp = argv+argc+1;
