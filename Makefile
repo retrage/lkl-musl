@@ -84,8 +84,11 @@ all:
 
 else
 # exclude some files for frankenlibc
-BASE_SRCS := $(filter-out $(LKL_EXCLUDE),$(sort $(wildcard $(BASE_SRCS) $(LKL_INCLUDE))))
+SRC_DIRS = $(addprefix $(srcdir)/,src/* crt ldso)
+BASE_GLOBS = $(addsuffix /*.c,$(SRC_DIRS))
+BASE_SRCS := $(filter-out $(LKL_EXCLUDE),$(sort $(wildcard $(BASE_GLOBS) $(LKL_INCLUDE))))
 BASE_OBJS = $(patsubst $(srcdir)/%,%.o,$(basename $(BASE_SRCS)))
+ARCH_GLOBS = $(addsuffix /$(ARCH)/*.[csS],$(SRC_DIRS))
 ARCH_SRCS := $(filter-out $(LKL_EXCLUDE),$(sort $(wildcard $(ARCH_SRCS))))
 ARCH_OBJS = $(patsubst $(srcdir)/%,%.o,$(basename $(ARCH_SRCS)))
 REPLACED_OBJS = $(sort $(subst /$(ARCH)/,/,$(ARCH_OBJS)))
