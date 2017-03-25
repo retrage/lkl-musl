@@ -3,6 +3,12 @@
 
 static int __pthread_timedjoin_np(pthread_t t, void **res, const struct timespec *at)
 {
+	struct bmk_thread;
+	void	bmk_sched_join(struct bmk_thread *);
+	bmk_sched_join((struct bmk_thread *)t->tid);
+	if (res) *res = t->result;
+	return 0;
+
 	int state, cs, r = 0;
 	__pthread_testcancel();
 	__pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, &cs);

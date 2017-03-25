@@ -189,7 +189,7 @@ extern hidden unsigned __default_guardsize;
 #define DEFAULT_STACK_SIZE 131072
 #define DEFAULT_GUARD_SIZE 8192
 
-#define DEFAULT_STACK_MAX (8<<20)
+#define DEFAULT_STACK_SIZE 3*1024*1024 //81920
 #define DEFAULT_GUARD_MAX (1<<20)
 
 #define __ATTRP_C11_THREAD ((void*)(uintptr_t)-1)

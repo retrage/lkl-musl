@@ -120,6 +120,9 @@ _Noreturn void __pthread_exit(void *result)
 	self->tid = 0;
 	UNLOCK(self->killlock);
 
+void	bmk_sched_exit_withtls(void) __attribute__((__noreturn__));
+	bmk_sched_exit_withtls();
+
 	for (;;) __syscall(SYS_exit, 0);
 }
 
