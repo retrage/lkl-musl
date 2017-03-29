@@ -120,8 +120,10 @@ _Noreturn void __pthread_exit(void *result)
 	self->tid = 0;
 	UNLOCK(self->killlock);
 
-void	bmk_sched_exit_withtls(void) __attribute__((__noreturn__));
-	bmk_sched_exit_withtls();
+#ifdef CONFIG_LKL
+	void rumprun_thread_exit_withtls(void)  __attribute__((__noreturn__));
+	rumprun_thread_exit_withtls();
+#endif
 
 	for (;;) __syscall(SYS_exit, 0);
 }
