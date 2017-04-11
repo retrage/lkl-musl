@@ -1,13 +1,14 @@
 #include "pthread_impl.h"
 #include <sys/mman.h>
 
+int rumpuser_thread_join(void *);
+
 static int __pthread_timedjoin_np(pthread_t t, void **res, const struct timespec *at)
 {
 	int state, cs, r = 0;
 
 #ifdef CONFIG_LKL
-	void rumprun_thread_join(void *);
-	rumprun_thread_join(t->tid);
+	rumpuser_thread_join(t->tid);
 	if (res) *res = t->result;
 	return 0;
 #endif
