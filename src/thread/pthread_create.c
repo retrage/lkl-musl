@@ -61,7 +61,12 @@ _Noreturn void __pthread_exit(void *result)
 		libc.threads_minus_1 = 0;
 		UNLOCK(self->killlock);
 		__restore_sigs(&set);
+#ifdef CONFIG_LKL
+		void rumprun_thread_exit_withtls(void)  __attribute__((__noreturn__));
+		rumprun_thread_exit_withtls();
+#else
 		exit(0);
+#endif
 	}
 
 	/* Process robust list in userspace to handle non-pshared mutexes
@@ -123,9 +128,9 @@ _Noreturn void __pthread_exit(void *result)
 #ifdef CONFIG_LKL
 	void rumprun_thread_exit_withtls(void)  __attribute__((__noreturn__));
 	rumprun_thread_exit_withtls();
-#endif
-
+#else
 	for (;;) __syscall(SYS_exit, 0);
+#endif
 }
 
 void __do_cleanup_push(struct __ptcb *cb)
