@@ -33,7 +33,7 @@ CRT_OBJS = $(filter obj/crt/%,$(ALL_OBJS))
 
 AOBJS = $(LIBC_OBJS)
 LOBJS = $(LIBC_OBJS:.o=.lo)
-GENH = obj/include/bits/alltypes.h obj/include/bits/syscall.h
+GENH = obj/include/bits/alltypes.h obj/include/bits/syscall.h obj/include/bits/stat.h
 GENH_INT = obj/src/internal/version.h
 IMPH = $(addprefix $(srcdir)/, src/internal/stdio_impl.h src/internal/pthread_impl.h src/internal/locale_impl.h src/internal/libc.h)
 
@@ -105,6 +105,9 @@ $(ALL_LIBS) $(ALL_TOOLS) $(ALL_OBJS) $(ALL_OBJS:%.o=%.lo) $(GENH) $(GENH_INT): |
 
 $(OBJ_DIRS):
 	mkdir -p $@
+
+obj/include/bits/stat.h: $(srcdir)/arch/lkl/bits/stat.h
+	cp -f $^ $@
 
 obj/include/bits/alltypes.h: $(srcdir)/arch/$(ARCH)/bits/alltypes.h.in $(srcdir)/include/alltypes.h.in $(srcdir)/tools/mkalltypes.sed
 	sed -f $(srcdir)/tools/mkalltypes.sed $(srcdir)/arch/$(ARCH)/bits/alltypes.h.in $(srcdir)/include/alltypes.h.in > $@
@@ -215,6 +218,9 @@ $(DESTDIR)$(includedir)/bits/%: $(srcdir)/arch/generic/bits/%
 	$(INSTALL) -D -m 644 $< $@
 
 $(DESTDIR)$(includedir)/bits/%: obj/include/bits/%
+	$(INSTALL) -D -m 644 $< $@
+
+$(DESTDIR)$(includedir)/bits/stat.h: obj/include/bits/stat.h
 	$(INSTALL) -D -m 644 $< $@
 
 $(DESTDIR)$(includedir)/%: $(srcdir)/include/%
