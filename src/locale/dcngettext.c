@@ -112,7 +112,7 @@ static char *dummy_gettextdomain()
 	return "messages";
 }
 
-weak_alias(dummy_gettextdomain, __gettextdomain);
+weak_alias0(dummy_gettextdomain, __gettextdomain);
 
 char *dcngettext(const char *domainname, const char *msgid1, const char *msgid2, unsigned long int n, int category)
 {

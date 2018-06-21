@@ -54,4 +54,7 @@ extern hidden const char __libc_version[];
 hidden void __synccall(void (*)(void *), void *);
 hidden int __setxid(int, int, int, int);
 
+#undef LFS64_2
+#define LFS64_2(x, y) weak_alias(x, y)
+
 #endif

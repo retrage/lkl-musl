@@ -7,7 +7,7 @@ static int dummy(int fd)
 	return fd;
 }
 
-weak_alias(dummy, __aio_close);
+weak_alias0(dummy, __aio_close);
 
 int close(int fd)
 {

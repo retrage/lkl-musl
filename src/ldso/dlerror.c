@@ -50,7 +50,10 @@ hidden void __dl_seterr(const char *fmt, ...)
 	va_end(ap);
 }
 
-static int stub_invalid_handle(void *h)
+__attribute__((__visibility__("hidden")))
+int __dl_invalid_handle(void *);
+
+int stub_invalid_handle(void *h)
 {
 	__dl_seterr("Invalid library handle %p", (void *)h);
 	return 1;

@@ -4,7 +4,7 @@ static void dummy()
 {
 }
 
-weak_alias(dummy, __testcancel);
+weak_alias0(dummy, __testcancel);
 
 void __pthread_testcancel()
 {

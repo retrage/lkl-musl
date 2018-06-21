@@ -19,7 +19,7 @@ static volatile int synccall_lock[1];
 static volatile int target_tid;
 static void (*callback)(void *), *context;
 static volatile int dummy = 0;
-weak_alias(dummy, __block_new_threads);
+weak_alias0(dummy, __block_new_threads);
 
 static void handler(int sig)
 {
