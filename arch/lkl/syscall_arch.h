@@ -4,8 +4,6 @@
 #include "syscall.h"
 #include "libc.h"
 
-typedef long syscall_arg_t;
-
 /* FIXME: included from asm/syscalls.h but current header
    is not appropriately exported so.. */
 /* #include <asm/syscalls.h> */
