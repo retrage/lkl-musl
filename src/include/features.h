@@ -5,13 +5,15 @@
 
 #ifndef __APPLE__
 #define weak __attribute__((__weak__))
+#else
+#define weak
 #endif
 #define hidden __attribute__((__visibility__("hidden")))
 
 #undef weak_alias
 #ifndef __APPLE__
 #define weak_alias(old, new) \
-	extern __typeof(old) new __attribute__((weak, alias(#old)))
+	extern __typeof(old) new __attribute__((__weak__, alias(#old)))
 #define weak_alias0(old, new) weak_alias(old,new)
 
 #else

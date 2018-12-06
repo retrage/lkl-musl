@@ -20,7 +20,7 @@ static void *dummy_1(void *p)
 {
 	return 0;
 }
-weak_alias(dummy_1, __start_sched);
+weak_alias0(dummy_1, __start_sched);
 
 _Noreturn void __pthread_exit(void *result)
 {

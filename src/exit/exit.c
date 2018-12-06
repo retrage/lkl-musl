@@ -12,7 +12,10 @@ weak_alias0(dummy, __funcs_on_exit);
 weak_alias0(dummy, __stdio_exit);
 weak_alias0(dummy, _fini);
 
-extern weak hidden void (*const __fini_array_start)(void), (*const __fini_array_end)(void);
+#ifndef __APPLE__
+extern
+#endif
+weak hidden void (*const __fini_array_start)(void), (*const __fini_array_end)(void);
 
 void libc_exit_fini(void)
 {

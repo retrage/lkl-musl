@@ -72,7 +72,10 @@ typedef Elf32_Phdr Phdr;
 typedef Elf64_Phdr Phdr;
 #endif
 
-extern weak hidden const size_t _DYNAMIC[];
+#ifndef __APPLE__
+extern
+#endif
+weak hidden const size_t _DYNAMIC[];
 
 void static_init_tls(size_t *aux)
 {

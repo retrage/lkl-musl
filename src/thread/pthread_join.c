@@ -32,7 +32,7 @@ int __pthread_join(pthread_t t, void **res)
 	return __pthread_timedjoin_np(t, res, 0);
 }
 
-static int __pthread_tryjoin_np(pthread_t t, void **res)
+int __pthread_tryjoin_np(pthread_t t, void **res)
 {
 	return t->detach_state==DT_JOINABLE ? EBUSY : __pthread_join(t, res);
 }

@@ -400,7 +400,7 @@ dst:
 	UNLOCK(lock);
 }
 
-static void __tzset()
+void __tzset()
 {
 	LOCK(lock);
 	do_tzset();

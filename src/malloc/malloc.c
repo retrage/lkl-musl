@@ -1,3 +1,10 @@
+#ifdef CONFIG_LKL
+#define malloc lkl_unused_malloc
+#define calloc lkl_unused_calloc
+#define realloc lkl_unused_realloc
+#define free lkl_unused_free
+#endif
+
 #define _GNU_SOURCE
 #include <stdlib.h>
 #include <string.h>

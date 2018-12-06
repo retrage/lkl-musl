@@ -18,7 +18,7 @@ __asm__(
 START ": \n"
 "	xor %rbp,%rbp \n"
 "	mov %rsp,%rdi \n"
-"	lea _DYNAMIC(%rip),%rsi \n"
+"	lea __DYNAMIC(%rip),%rsi \n"
 "	andq $-16,%rsp \n"
 "	call " START "_c \n"
 );

@@ -270,4 +270,4 @@
 #define SYS_memfd_create __NR_memfd_create
 #define SYS_bpf __NR_bpf
 #define SYS_execveat __NR_execveat
-
+#define SYS_mlock2 __NR_mlock2
