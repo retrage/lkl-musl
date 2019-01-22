@@ -1,6 +1,10 @@
 #include "libc.h"
 
+#ifdef __APPLE__
+struct __libc __libc = {0};
+#else
 struct __libc __libc;
+#endif
 
 size_t __hwcap;
 size_t __sysinfo;

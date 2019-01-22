@@ -28,6 +28,7 @@ void __init_libc(char **envp, char *pn)
 	size_t i, *auxv, aux[AUX_CNT] = { 0 };
 	__environ = envp;
 	for (i=0; envp[i]; i++);
+#ifndef __APPLE__
 	libc.auxv = auxv = (void *)(envp+i+1);
 	for (i=0; auxv[i]; i+=2) if (auxv[i]<AUX_CNT) aux[auxv[i]] = auxv[i+1];
 	__hwcap = aux[AT_HWCAP];
@@ -38,6 +39,7 @@ void __init_libc(char **envp, char *pn)
 	if (!pn) pn = "";
 	__progname = __progname_full = pn;
 	for (i=0; pn[i]; i++) if (pn[i]=='/') __progname = pn+i+1;
+#endif
 
 	__init_tls(aux);
 	__init_ssp((void *)aux[AT_RANDOM]);
