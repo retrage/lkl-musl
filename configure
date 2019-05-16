@@ -349,7 +349,8 @@ LKL_EXCLUDE="$srcdir/src/thread/x86_64/__set_thread_area.s \
  $srcdir/src/internal/x86_64/syscall.s $srcdir/src/thread/__syscall_cp.c \
  $srcdir/src/unistd/_exit.c \
  $srcdir/src/thread/clone.c $srcdir/src/thread/x86_64/clone.s \
- $srcdir/src/linux/clone.c $srcdir/src/thread/__set_thread_area.c"
+ $srcdir/src/linux/clone.c $srcdir/src/thread/__set_thread_area.c \
+ $srcdir/src/process/x86_64/vfork.s"
 
 if test "$ARCH" = arm ; then
 LKL_EXCLUDE="$LKL_EXCLUDE $srcdir/src/thread/arm/__set_thread_area.c"

@@ -271,3 +271,5 @@
 #define SYS_bpf __NR_bpf
 #define SYS_execveat __NR_execveat
 #define SYS_mlock2 __NR_mlock2
+
+#define SYS_vfork __NR_vfork

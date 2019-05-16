@@ -11,8 +11,12 @@ static void dummy(int x)
 
 weak_alias0(dummy, __fork_handler);
 
+pid_t vfork(void);
 pid_t fork(void)
 {
+#ifdef CONFIG_LKL
+	return vfork();
+#endif
 	pid_t ret;
 	sigset_t set;
 	__fork_handler(-1);
