@@ -93,7 +93,7 @@ ARCH_SRCS := $(filter-out $(LKL_EXCLUDE),$(sort $(wildcard $(ARCH_SRCS))))
 ARCH_OBJS = $(patsubst $(srcdir)/%,%.o,$(basename $(ARCH_SRCS)))
 REPLACED_OBJS = $(sort $(subst /$(ARCH)/,/,$(ARCH_OBJS)))
 ALL_OBJS = $(addprefix obj/, $(filter-out $(REPLACED_OBJS), $(sort $(BASE_OBJS) $(ARCH_OBJS))))
-LIBC_OBJS = $(filter obj/src/% obj/arch/lkl/%,$(ALL_OBJS))
+LIBC_OBJS = $(filter obj/src/% obj/arch/lkl/%,$(ALL_OBJS)) obj/ldso/dlstart.lo obj/ldso/dynlink.lo
 AOBJS := $(LIBC_OBJS)
 LOBJS := $(LIBC_OBJS:.o=.lo)
 
