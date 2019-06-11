@@ -15,3 +15,8 @@ int __clone(int (*func)(void *), void *stack, int flags, void *arg, ...)
 	self->unused1 = tid;
 	return tid ? 0 : -1;
 }
+
+int clone(int (*func)(void *), void *stack, int flags, void *arg, ...)
+{
+	return __clone(func, stack, flags, arg);
+}
