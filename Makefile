@@ -183,7 +183,11 @@ lib/libc.a: $(AOBJS)
 
 $(EMPTY_LIBS):
 	rm -f $@
-	$(AR) rc $@ ../rumpobj/linux/empty.o
+ifeq ($(shell uname -s), Darwin)
+	libtool -static -o $@ ../rumpobj/linux/empty.o
+else
+	$(AR) rc $@
+endif
 
 lib/%.o: obj/crt/$(ARCH)/%.o
 	cp $< $@
