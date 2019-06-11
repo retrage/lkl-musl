@@ -8,7 +8,7 @@ static int __pthread_timedjoin_np(pthread_t t, void **res, const struct timespec
 	int state, cs, r = 0;
 
 #ifdef CONFIG_LKL
-	rumpuser_thread_join(t->tid);
+	rumpuser_thread_join((void *)t->unused1);
 	if (res) *res = t->result;
 	return 0;
 #endif

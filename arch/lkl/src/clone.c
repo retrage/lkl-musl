@@ -5,7 +5,6 @@ void *rumprun_thread_create_withtls(int (*)(void *), void *,
 
 int __clone(int (*func)(void *), void *stack, int flags, void *arg, ...)
 {
-	int ret;
 	void *tid;
 	struct pthread *self = arg;
 
@@ -13,6 +12,6 @@ int __clone(int (*func)(void *), void *stack, int flags, void *arg, ...)
 					    (char *)stack - self->stack_size,
 					    self->stack_size, self);
 
-	self->tid = (uintptr_t)tid;
-	return ret;
+	self->unused1 = tid;
+	return tid ? 0 : -1;
 }
