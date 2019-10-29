@@ -1,7 +1,10 @@
 /* import syscall num (__NR_xx) from lkl */
+#include <lkl/autoconf.h>
+#if defined(LKL_CONFIG_64BIT) && !defined(CONFIG_64BIT)
 #define CONFIG_64BIT
+#endif
 #include <asm/unistd.h>
-#define __NR_fstatat __NR_newfstatat
+
 
 #define SYS_io_setup __NR_io_setup
 #define SYS_io_destroy __NR_io_destroy
@@ -28,7 +31,11 @@
 #define SYS_epoll_pwait __NR_epoll_pwait
 #define SYS_dup __NR_dup
 #define SYS_dup3 __NR_dup3
+#if __BITS_PER_LONG == 64
 #define SYS_fcntl __NR_fcntl
+#else
+#define SYS_fcntl __NR_fcntl64
+#endif
 #define SYS_inotify_init1 __NR_inotify_init1
 #define SYS_inotify_add_watch __NR_inotify_add_watch
 #define SYS_inotify_rm_watch __NR_inotify_rm_watch
@@ -46,10 +53,6 @@
 #define SYS_mount __NR_mount
 #define SYS_pivot_root __NR_pivot_root
 #define SYS_nfsservctl __NR_nfsservctl
-#define SYS_statfs __NR_statfs
-#define SYS_fstatfs __NR_fstatfs
-#define SYS_truncate __NR_truncate
-#define SYS_ftruncate __NR_ftruncate
 #define SYS_fallocate __NR_fallocate
 #define SYS_faccessat __NR_faccessat
 #define SYS_chdir __NR_chdir
@@ -65,7 +68,6 @@
 #define SYS_pipe2 __NR_pipe2
 #define SYS_quotactl __NR_quotactl
 #define SYS_getdents64 __NR_getdents64
-#define SYS_lseek __NR_lseek
 #define SYS_read __NR_read
 #define SYS_write __NR_write
 #define SYS_readv __NR_readv
@@ -74,7 +76,26 @@
 #define SYS_pwrite64 __NR_pwrite64
 #define SYS_preadv __NR_preadv
 #define SYS_pwritev __NR_pwritev
+#if __BITS_PER_LONG == 64
 #define SYS_sendfile __NR_sendfile
+#define SYS_fstat __NR_fstat
+#define SYS_fstatat __NR_newfstatat
+#define SYS_statfs __NR_statfs
+#define SYS_fstatfs __NR_fstatfs
+#define SYS_lseek __NR_lseek
+#define SYS_truncate __NR_truncate
+#define SYS_ftruncate __NR_ftruncate
+#else
+#define SYS_sendfile __NR_sendfile64
+#define SYS_fstat __NR_fstat64
+#define SYS_fstatat __NR_fstatat64
+#define SYS_statfs __NR_statfs64
+#define SYS_fstatfs __NR_fstatfs64
+#define SYS_lseek __NR_llseek
+#define SYS__llseek __NR_llseek
+#define SYS_truncate __NR_truncate64
+#define SYS_ftruncate __NR_ftruncate64
+#endif
 #define SYS_pselect6 __NR_pselect6
 #define SYS_ppoll __NR_ppoll
 #define SYS_signalfd4 __NR_signalfd4
@@ -82,8 +103,6 @@
 #define SYS_splice __NR_splice
 #define SYS_tee __NR_tee
 #define SYS_readlinkat __NR_readlinkat
-#define SYS_fstatat __NR_fstatat
-#define SYS_fstat __NR_fstat
 #define SYS_sync __NR_sync
 #define SYS_fsync __NR_fsync
 #define SYS_fdatasync __NR_fdatasync
@@ -225,8 +244,13 @@
 #define SYS_keyctl __NR_keyctl
 #define SYS_clone __NR_clone
 #define SYS_execve __NR_execve
+#if __BITS_PER_LONG == 64
 #define SYS_mmap __NR_mmap
 #define SYS_fadvise64 __NR_fadvise64
+#else
+#define SYS_mmap __NR_mmap2
+#define SYS_fadvise64 __NR3264_fadvise64
+#endif
 #define SYS_swapon __NR_swapon
 #define SYS_swapoff __NR_swapoff
 #define SYS_mprotect __NR_mprotect
