@@ -103,7 +103,7 @@ static struct builtin_tls {
 } builtin_tls[1];
 #define MIN_TLS_ALIGN offsetof(struct builtin_tls, pt)
 
-#define ADDEND_LIMIT 4096
+#define ADDEND_LIMIT 40960
 static size_t *saved_addends, *apply_addends_to;
 
 static struct dso ldso;
