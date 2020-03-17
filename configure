@@ -364,6 +364,11 @@ LKL_EXCLUDE="$LKL_EXCLUDE \
  $srcdir/src/process/$ARCH/vfork.s"
 fi
 
+if test "$ARCH" = aarch64 ; then
+LKL_EXCLUDE="$LKL_EXCLUDE \
+ $srcdir/src/thread/$ARCH/__set_thread_area.s"
+fi
+
 LKL_INCLUDE="$srcdir/arch/lkl/src/*.c"
 
 if [[ "$target" = "x86_64-apple-darwin"* ]] ; then

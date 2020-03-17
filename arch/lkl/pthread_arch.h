@@ -20,6 +20,8 @@ static inline struct pthread *__pthread_self()
 
 #ifdef __x86_64__
 #define MC_PC gregs[REG_RIP]
-#elif __arm__
+#elif defined(__arm__)
 #define MC_PC arm_pc
+#elif defined(__aarch64__)
+#define MC_PC pc
 #endif
