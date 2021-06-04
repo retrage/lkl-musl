@@ -315,6 +315,7 @@ printf "%s\n" "$target"
 #
 case "$target" in
 # Catch these early to simplify matching for 32-bit archs
+arm64-apple-darwin*) ARCH=aarch64-darwin ;;
 arm*) ARCH=arm ;;
 aarch64*) ARCH=aarch64 ;;
 i?86-nt32*) ARCH=nt32 ;;
@@ -373,6 +374,12 @@ LKL_INCLUDE="$srcdir/arch/lkl/src/*.c"
 
 if [[ "$target" = "x86_64-apple-darwin"* ]] ; then
 LKL_INCLUDE="$LKL_INCLUDE $srcdir/src/setjmp/x86_64/*.s"
+LKL_EXCLUDE="$LKL_EXCLUDE $srcdir/src/setjmp/setjmp.c \
+ $srcdir/src/setjmp/longjmp.c"
+elif [[ "$target" = "arm64-apple-darwin"* ]] ; then
+LKL_INCLUDE="$LKL_INCLUDE $srcdir/src/setjmp/aarch64/*.s"
+LKL_EXCLUDE="$LKL_EXCLUDE $srcdir/src/setjmp/setjmp.c \
+ $srcdir/src/setjmp/longjmp.c"
 fi
 
 
@@ -392,7 +399,9 @@ tryflag CFLAGS_C99FSE -ffreestanding \
 || tryflag CFLAGS_C99FSE -fno-builtin
 tryflag CFLAGS_C99FSE -fexcess-precision=standard \
 || { test "$ARCH" = i386 && tryflag CFLAGS_C99FSE -ffloat-store ; }
+if [[ "$target" != "arm64-apple-darwin"* ]] ; then
 tryflag CFLAGS_C99FSE -frounding-math
+fi
 
 #
 # We may use the may_alias attribute if __GNUC__ is defined, so
@@ -554,7 +563,9 @@ fi
 #
 tryflag CFLAGS_AUTO -Werror=implicit-function-declaration
 tryflag CFLAGS_AUTO -Werror=implicit-int
+if [[ "$target" != "arm64-apple-darwin"* ]] ; then
 tryflag CFLAGS_AUTO -Werror=pointer-sign
+fi
 tryflag CFLAGS_AUTO -Werror=pointer-arith
 
 #
@@ -744,7 +755,7 @@ if $CC $CFLAGS_C99FSE \
 printf "yes\n"
 else
 printf "no\n"
-fail "$0: error: unsupported long double type"
+printf "$0: error: unsupported long double type"
 fi
 
 #

@@ -1,9 +1,14 @@
 .global __setjmp
+	.align        4;
 .global _setjmp
+	.align        4;
 .global setjmp
+	.align        4;
+#ifndef __APPLE__
 .type __setjmp,@function
 .type _setjmp,@function
 .type setjmp,@function
+#endif
 __setjmp:
 _setjmp:
 setjmp:
