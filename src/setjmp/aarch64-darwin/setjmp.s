@@ -1,9 +1,9 @@
 .global __setjmp
+	.align        4;
 .global _setjmp
+	.align        4;
 .global setjmp
-.type __setjmp,@function
-.type _setjmp,@function
-.type setjmp,@function
+	.align        4;
 __setjmp:
 _setjmp:
 setjmp:

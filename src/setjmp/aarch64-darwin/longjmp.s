@@ -1,7 +1,7 @@
 .global _longjmp
+	.align        4;
 .global longjmp
-.type _longjmp,%function
-.type longjmp,%function
+	.align        4;
 _longjmp:
 longjmp:
 	// IHI0055B_aapcs64.pdf 5.1.1, 5.1.2 callee saved registers
