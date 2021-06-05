@@ -372,11 +372,11 @@ fi
 
 LKL_INCLUDE="$srcdir/arch/lkl/src/*.c"
 
-if [[ "$target" = "x86_64-apple-darwin"* ]] ; then
+if [[ "$ARCH" = "x86_64-darwin"* ]] ; then
 LKL_INCLUDE="$LKL_INCLUDE $srcdir/src/setjmp/x86_64/*.s"
 LKL_EXCLUDE="$LKL_EXCLUDE $srcdir/src/setjmp/setjmp.c \
  $srcdir/src/setjmp/longjmp.c"
-elif [[ "$target" = "arm64-apple-darwin"* ]] ; then
+elif [[ "$ARCH" = "aarch64-darwin"* ]] ; then
 LKL_INCLUDE="$LKL_INCLUDE $srcdir/src/setjmp/aarch64/*.s"
 LKL_EXCLUDE="$LKL_EXCLUDE $srcdir/src/setjmp/setjmp.c \
  $srcdir/src/setjmp/longjmp.c"
@@ -399,7 +399,7 @@ tryflag CFLAGS_C99FSE -ffreestanding \
 || tryflag CFLAGS_C99FSE -fno-builtin
 tryflag CFLAGS_C99FSE -fexcess-precision=standard \
 || { test "$ARCH" = i386 && tryflag CFLAGS_C99FSE -ffloat-store ; }
-if [[ "$target" != "arm64-apple-darwin"* ]] ; then
+if [[ "$ARCH" != "aarch64-darwin"* ]] ; then
 tryflag CFLAGS_C99FSE -frounding-math
 fi
 
@@ -563,7 +563,7 @@ fi
 #
 tryflag CFLAGS_AUTO -Werror=implicit-function-declaration
 tryflag CFLAGS_AUTO -Werror=implicit-int
-if [[ "$target" != "arm64-apple-darwin"* ]] ; then
+if [[ "$ARCH" != "aarch64-darwin"* ]] ; then
 tryflag CFLAGS_AUTO -Werror=pointer-sign
 fi
 tryflag CFLAGS_AUTO -Werror=pointer-arith
