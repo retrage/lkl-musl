@@ -20,8 +20,11 @@ weak hidden void (*const __fini_array_start)(void), (*const __fini_array_end)(vo
 void libc_exit_fini(void)
 {
 	uintptr_t a = (uintptr_t)&__fini_array_end;
-	for (; a>(uintptr_t)&__fini_array_start; a-=sizeof(void(*)()))
+	for (; a>(uintptr_t)&__fini_array_start; a-=sizeof(void(*)())) {
+		if (*(void (**)())(a-sizeof(void(*)())) == NULL)
+			continue;
 		(*(void (**)())(a-sizeof(void(*)())))();
+	}
 	_fini();
 }
 
