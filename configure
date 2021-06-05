@@ -377,7 +377,7 @@ LKL_INCLUDE="$LKL_INCLUDE $srcdir/src/setjmp/x86_64/*.s"
 LKL_EXCLUDE="$LKL_EXCLUDE $srcdir/src/setjmp/setjmp.c \
  $srcdir/src/setjmp/longjmp.c"
 elif [[ "$ARCH" = "aarch64-darwin"* ]] ; then
-LKL_INCLUDE="$LKL_INCLUDE $srcdir/src/setjmp/aarch64/*.s"
+LKL_INCLUDE="$LKL_INCLUDE $srcdir/src/setjmp/aarch64-darwin/*.s"
 LKL_EXCLUDE="$LKL_EXCLUDE $srcdir/src/setjmp/setjmp.c \
  $srcdir/src/setjmp/longjmp.c"
 fi
